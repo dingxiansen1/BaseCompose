@@ -1,14 +1,11 @@
 package com.dd.base.net
 
-
-import android.app.Application
 import android.content.Context
 import com.dd.base.BuildConfig
 import okhttp3.OkHttpClient
 import rxhttp.RxHttpPlugins
 import rxhttp.wrapper.annotation.OkClient
 import rxhttp.wrapper.cookie.CookieStore
-import rxhttp.wrapper.param.Param
 import rxhttp.wrapper.ssl.HttpsUtils
 import java.io.File
 import java.util.concurrent.TimeUnit

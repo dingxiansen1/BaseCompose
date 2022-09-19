@@ -1,4 +1,4 @@
-package com.dd.base.widght
+package com.dd.base.widget
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
