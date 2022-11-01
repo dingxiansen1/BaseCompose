@@ -34,13 +34,13 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerExtensionVersion Version.compose_version
     }
 }
 
 dependencies {
 
-    implementation AndroidX.core
+    api AndroidX.core
     api Compose.ui
     api Compose.material
     api Compose.ui_tooling_preview
@@ -80,4 +80,5 @@ dependencies {
     api Other.okhttp3
     api Other.rxhttp
     kapt Other.rxhttp_compiler
+
 }
