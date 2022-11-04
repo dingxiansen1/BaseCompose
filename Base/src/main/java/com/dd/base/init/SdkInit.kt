@@ -11,7 +11,7 @@ object SdkInit {
 
     fun init(context: Context){
 
-        LogUtils.setDebug(BuildConfig.DEBUG)
+        LogUtils.init(BuildConfig.DEBUG)
         //DataStore初始化
         DataStoreUtils.init(context)
 

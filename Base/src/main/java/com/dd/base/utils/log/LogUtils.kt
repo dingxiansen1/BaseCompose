@@ -1,6 +1,7 @@
 package com.dd.base.utils.log
 
 import android.util.Log
+import com.dd.base.BuildConfig
 import com.dd.base.utils.log.LogUtils.Type.*
 import com.dd.base.utils.log.LogUtils.enabled
 import com.dd.base.utils.log.LogUtils.logHooks
@@ -40,12 +41,26 @@ object LogUtils {
 
     /** 日志的Hook钩子 */
     val logHooks by lazy { ArrayList<LogHook>() }
-
+    var scope : CoroutineScope?=null
+    /**
+     *开始日志
+     **/
+    fun init(enabled: Boolean = BuildConfig.DEBUG, tag: String = this.tag){
+        scope = CoroutineScope(Dispatchers.IO)
+        setDebug(enabled)
+    }
+    /**
+     * 关闭日志
+     **/
+    fun cancel(){
+        scope?.cancel()
+        scope = null
+    }
     /**
      * @param enabled 是否启用日志
      * @param tag 日志默认标签
      */
-    fun setDebug(enabled: Boolean, tag: String = this.tag) {
+    private fun setDebug(enabled: Boolean, tag: String = this.tag) {
         this.enabled = enabled
         this.tag = tag
     }
@@ -162,7 +177,7 @@ object LogUtils {
         tr: Throwable? = null,
         occurred: Throwable? = Exception()
     ) {
-        CoroutineScope(Dispatchers.IO).launch {
+        scope?.launch {
             Mutex().withLock {
                 if (!enabled || msg == null) return@launch
                 var message = msg.toString()
