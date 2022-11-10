@@ -81,4 +81,5 @@ dependencies {
     api Other.rxhttp
     kapt Other.rxhttp_compiler
 
+
 }
