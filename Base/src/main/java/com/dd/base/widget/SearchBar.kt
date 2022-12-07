@@ -18,7 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.dd.base.ui.theme.AppTheme
+import com.dd.base.theme.AppTheme
 
 @Composable
 fun SearchBarNotClickable(

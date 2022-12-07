@@ -1,4 +1,4 @@
-package com.dd.base.ui.theme
+package com.dd.base.theme
 
 
 import androidx.compose.runtime.MutableState

@@ -41,7 +41,7 @@ android {
 dependencies {
 
     //BOM自动确认compose依赖的版本号
-   // api platform('androidx.compose:compose-bom:2022.10.00')
+    api platform('androidx.compose:compose-bom:2022.10.00')
     api AndroidX.core
     api Compose.ui
     api Compose.material
