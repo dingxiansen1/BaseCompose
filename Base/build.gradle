@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'kotlinx-serialization'
 }
 
 android {
@@ -83,5 +84,5 @@ dependencies {
     api Other.rxhttp
     kapt Other.rxhttp_compiler
 
-
+    implementation Other.serialization
 }
