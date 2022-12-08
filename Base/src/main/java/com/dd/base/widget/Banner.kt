@@ -12,13 +12,16 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.*
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.AsyncImage
+import com.dd.base.theme.AppTheme
 import com.dd.base.utils.sdp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -40,10 +43,13 @@ interface BannerData {
 
 /**
  * 轮播图
- * [looping] 是否自动轮播
+ * [paddingValues] 内间距
+ * [looping] 是否自动轮播 默认为true
  * [timeMillis] 停留时间
  * [loadImage] 加载中显示的布局 默认为空
  * [indicatorAlignment] 指示点的的位置,默认是轮播图下方的中间,带一点padding
+ * [indicatorColor] 指示点的背景颜色
+ * [activeColor] 指示点的激活颜色
  * [onClick] 轮播图点击事件
  */
 @OptIn(ExperimentalPagerApi::class)
@@ -57,6 +63,8 @@ fun Banner(
     timeMillis: Long = 3000,
     @DrawableRes loadImage: Int = 0,
     indicatorAlignment: Alignment = Alignment.BottomCenter,
+    indicatorColor: Color = AppTheme.colors.divider,
+    activeColor: Color = AppTheme.colors.error,
     onClick: (link: String,linkTitle: String) -> Unit
 ) {
 
@@ -97,7 +105,8 @@ fun Banner(
             ) { page ->
                 AsyncImage(
                     model = list[pageMapper(page)].imageUrl(),
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxSize()
                         .clip(RoundedCornerShape(50.sdp))
                         .clickable { //点击事件在clip后面，这样按下效果才会跟着被clip
                             with(list[pageMapper(page)]) {
@@ -115,7 +124,9 @@ fun Banner(
                     .align(indicatorAlignment)
                     .padding(16.dp),
                 pageCount = pageCount,
-                pageIndexMapping = ::pageMapper
+                pageIndexMapping = ::pageMapper,
+                activeColor =  activeColor,
+                inactiveColor =  indicatorColor
             )
 
             var underDragging by remember {
