@@ -84,5 +84,8 @@ dependencies {
     api Other.rxhttp
     kapt Other.rxhttp_compiler
 
-    implementation Other.serialization
+    api Other.serialization
+    //viewPager
+    api Compose.viewpager
+    api Compose.viewpager_indicators
 }
