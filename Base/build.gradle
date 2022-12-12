@@ -66,6 +66,9 @@ dependencies {
     api Jetpack.lifecycle_runtime
     api Jetpack.lifecycle_livedata
     api Jetpack.lifecycle_viewmodel
+    //paging
+    api Jetpack.paging
+    api Jetpack.paging_compose
 
 
     // datastore数据保存，用于cookie持久化
