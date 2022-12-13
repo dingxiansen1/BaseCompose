@@ -4,7 +4,6 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlinx-serialization'
-    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -92,8 +91,5 @@ dependencies {
     //viewPager
     api Compose.viewpager
     api Compose.viewpager_indicators
-    //hilt
-    implementation Jetpack.hilt
-    kapt Jetpack.hilt_kapt
-    implementation Jetpack.hilt_navigation
+
 }
