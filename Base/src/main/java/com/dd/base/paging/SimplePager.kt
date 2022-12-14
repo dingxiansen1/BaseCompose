@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 fun <T : Any> ViewModel.simplePager(
     config: AppPagingConfig = AppPagingConfig(),
-    callAction: suspend (page: Int) -> BaseResponse<ListWrapper<T>>
+    callAction: suspend (page: Int) -> List<T>
 ): Flow<PagingData<T>> {
     return pager(config, 0) {
         val page = it.key ?: 0
@@ -19,12 +19,11 @@ fun <T : Any> ViewModel.simplePager(
         when (response) {
             is HttpResult.Success -> {
                 try {
-                    val data = response.result.data
-                    val hasNotNext = (data!!.datas.size < it.loadSize) && (data.over)
+                    val data = response.result
                     PagingSource.LoadResult.Page(
-                        data = response.result.data!!.datas,
-                        prevKey = if (page - 1 > 0) page - 1 else null,
-                        nextKey = if (hasNotNext) null else page + 1
+                        data = response.result,
+                        prevKey = if (page == 0) null else page.minus(1),
+                        nextKey = if (data.isEmpty()) null else page.plus(1)
                     )
                 }catch (e: Exception){
                     PagingSource.LoadResult.Error(e)
