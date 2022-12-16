@@ -92,4 +92,5 @@ dependencies {
     api Compose.viewpager
     api Compose.viewpager_indicators
 
+    implementation Compose.navigation
 }

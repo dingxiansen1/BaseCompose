@@ -40,7 +40,7 @@ fun SearchBarNotClickable(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .padding(horizontal = 10.dp)
-                .background(AppTheme.colors.divider,CircleShape)
+                .background(AppTheme.colors.divider, CircleShape)
                 .height(30.dp)
                 .fillMaxWidth()
                 .clip(CircleShape)
@@ -86,7 +86,7 @@ fun SearchBarNotClickable(
 @Composable
 fun SearchBar(
     hint: String,//输入框提示文本
-    onClick: (() -> Unit)? = null//输入框点击事件，提供点击跳转到搜索页等定制功能,默认为空
+    textResult: ((String) -> Unit) //返回文本框的内容
 ) {
     var text by remember {
         mutableStateOf("")
@@ -95,16 +95,16 @@ fun SearchBar(
         modifier = Modifier
             .fillMaxWidth()
             .background(AppTheme.colors.transparent)
-            .padding(10.dp)
-            .clickable {
-                onClick?.invoke()
-            },
+            .padding(10.dp),
         contentAlignment = Alignment.Center
     )
     {
         BasicTextField(
             value = text,
-            onValueChange = { text = it },
+            onValueChange = {
+                text = it
+                textResult.invoke(text)
+            },
             decorationBox = { innerTextField ->
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -155,5 +155,7 @@ fun SearchBar(
 @Preview
 @Composable
 fun testSearchBar() {
-    SearchBar(hint = "天气之子")
+    SearchBarNotClickable(hint = "天气之子"){
+
+    }
 }
