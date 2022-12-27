@@ -85,15 +85,15 @@ fun SearchBarNotClickable(
 
 @Composable
 fun SearchBar(
+    modifier: Modifier,
     hint: String,//输入框提示文本
-    textResult: ((String) -> Unit) //返回文本框的内容
+    textResult: ((String) -> Unit) ,//返回文本框的内容
 ) {
     var text by remember {
         mutableStateOf("")
     }
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = modifier
             .background(AppTheme.colors.transparent)
             .padding(10.dp),
         contentAlignment = Alignment.Center
