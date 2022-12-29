@@ -17,7 +17,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.dd.base.theme.AppColors
 import com.dd.base.theme.AppTheme
 import com.dd.base.theme.ComposeAppTheme
 import com.dd.base.theme.Themem
