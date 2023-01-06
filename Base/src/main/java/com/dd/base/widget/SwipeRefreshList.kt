@@ -1,21 +1,16 @@
 package com.dd.base.widget
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.*
-import androidx.compose.runtime.R
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,6 +32,9 @@ fun <T : Any> SwipeRefreshList(
     listState: LazyListState = rememberLazyListState(),
     refresh: () -> Unit,
     itemContent: LazyListScope.() -> Unit,
+    errorView: (@Composable () -> Unit)? = null,
+    loadingView: (@Composable () -> Unit)? = null,
+    noMoreView: (@Composable () -> Unit)? = null,
 ) {
     var refreshing by remember {
         mutableStateOf(false)
@@ -68,11 +66,28 @@ fun <T : Any> SwipeRefreshList(
                 item {
                     lazyPagingItems.apply {
                         when (loadState.append) {
-                            is LoadState.Loading -> LoadingItem()
-                            is LoadState.Error -> ErrorItem { retry() }
+                            is LoadState.Loading -> {
+                                if (loadingView != null) {
+                                    loadingView.invoke()
+                                } else {
+                                    LoadingItem()
+                                }
+                            }
+                            is LoadState.Error -> {
+                                if (errorView != null) {
+                                    errorView.invoke()
+                                } else {
+                                    ErrorItem { retry() }
+                                }
+
+                            }
                             is LoadState.NotLoading -> {
                                 if (loadState.append.endOfPaginationReached) {
-                                    NoMoreItem()
+                                    if (noMoreView != null) {
+                                        noMoreView.invoke()
+                                    } else {
+                                        NoMoreItem()
+                                    }
                                 }
                             }
                         }
