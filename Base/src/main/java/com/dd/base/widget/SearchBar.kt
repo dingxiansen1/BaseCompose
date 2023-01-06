@@ -86,11 +86,12 @@ fun SearchBarNotClickable(
 @Composable
 fun SearchBar(
     modifier: Modifier,
+    key: String,//输入框提示文本
     hint: String,//输入框提示文本
     textResult: ((String) -> Unit) ,//返回文本框的内容
 ) {
     var text by remember {
-        mutableStateOf("")
+        mutableStateOf(key)
     }
     Box(
         modifier = modifier
